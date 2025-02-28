@@ -1,10 +1,6 @@
 <?php
+// Start the session (if needed)
 session_start();
-
-if (isset($_SESSION['user_id'])) {
-    header("Location: income-main.php");
-    exit;
-}
 ?>
 
 <!DOCTYPE html>
@@ -12,18 +8,22 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PennyTracker</title>
+    <title>PennyTracker - Register</title>
     
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
 
+
     <style>
+      /* Layout */
       .container-fluid {
         display: flex;
         height: 100vh;
       }
 
+      /* Left Section */
       .hero-container {
         display: flex;
         flex-direction: column;
@@ -54,7 +54,7 @@ if (isset($_SESSION['user_id'])) {
         margin-top: 10px;
       }
 
-      .login-container {
+      .register-container {
         width: 50%;
         display: flex;
         align-items: center;
@@ -63,7 +63,7 @@ if (isset($_SESSION['user_id'])) {
         padding: 40px;
       }
 
-      .login-box {
+      .register-box {
         background: #1e1e1e;
         padding: 40px;
         border-radius: 10px;
@@ -83,7 +83,8 @@ if (isset($_SESSION['user_id'])) {
       }
 
       .btn-primary {
-        margin-top: 10px;
+        margin-top: 10px; 
+        width: 30px;
         background: #51d289;
         border: none;
       }
@@ -92,17 +93,17 @@ if (isset($_SESSION['user_id'])) {
         background: #3cb978;
       }
 
-      .register-link {
+      .login-link {
         text-align: center;
         margin-top: 15px;
       }
 
-      .register-link a {
+      .login-link a {
         color: #51d289;
         text-decoration: none;
       }
 
-      .register-link a:hover {
+      .login-link a:hover {
         text-decoration: underline;
       }
     </style>
@@ -118,29 +119,48 @@ if (isset($_SESSION['user_id'])) {
     <div class="content-section">Your go-to budget tracker</div>
   </div>
 
-  <!-- Login Form -->
-  <div class="login-container">
-    <div class="login-box">
-      <h3 class="text-center mb-4">Login to PennyTracker</h3>
-      <form action="login_process.php" method="POST">
+  <!--Register Form -->
+  <div class="register-container">
+    <div class="register-box">
+      <h3 class="text-center mb-4">Create an Account</h3>
+      <form action="register_process.php" method="POST">
         <div class="mb-3">
-          <label for="email" class="form-label"><i class="fa-solid fa-envelope"></i> &nbsp;Email</label>
+          <label for="name" class="form-label"> <i class="fa-solid fa-user"></i> &nbsp;Full Name</label>
+          <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter your full name" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label"> <i class="fa-solid fa-envelope"></i> &nbsp;Email</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
         </div>
         <div class="mb-3">
           <label for="password" class="form-label"><i class="fa-solid fa-key"></i> &nbsp;Password</label>
           <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
         </div>
-        <button type="submit" class="btn btn-primary w-100"> <i class="fa-solid fa-right-to-bracket"></i> Login</button>
+        <div class="mb-3">
+          <label for="confirm_password" class="form-label"><i class="fa-solid fa-key"></i> &nbsp;Confirm Password</label>
+          <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100"> <i class="fa-regular fa-address-card"></i> Register</button>
       </form>
-      <div class="register-link">
-        <p>Don't have an account? <a href="register.php">Register now!</a></p>
+      <div class="login-link">
+        <p>Already have an account? <a href="index.php">Login here!</a></p>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+
+document.querySelector("form").addEventListener("submit", function(event) {
+      let password = document.getElementById("password").value;
+      let confirmPassword = document.getElementById("confirm_password").value;
+
+      if (password !== confirmPassword) {
+          alert("Passwords do not match!");
+          event.preventDefault();
+      }
+  });
+</script>
 </body>
 </html>
