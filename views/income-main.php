@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db.php';
+include __DIR__ . '/../database/db.php';
 
 if (!isset($_SESSION['user_id'])) {
     die("User session not found! Please log in again.");

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db.php';
+include __DIR__ . '/../database/db.php';
 
 // Redirect if user is not logged in
 if (!isset($_SESSION['user_id'])) {
